@@ -1,0 +1,1 @@
+cmd_/home/bananasuper/work/nnadrv/build/nnadrv.ko := ~/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/bananasuper/work/nnadrv/build/nnadrv.ko /home/bananasuper/work/nnadrv/build/nnadrv.o /home/bananasuper/work/nnadrv/build/nnadrv.mod.o ;  true

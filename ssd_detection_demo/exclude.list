@@ -1,0 +1,17 @@
+*.o
+*.a
+*.bin
+*.make
+*.cmake
+*.txt
+*.tar
+*.gz
+*.md
+*.yml
+*.yaml
+*.log
+.vscode
+.root
+.git
+.make
+.cmake
