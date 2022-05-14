@@ -119,7 +119,7 @@ metal/MobileNetDemo/MobileNetDemo/Resources
 lite/model_parser/flatbuffers/framework_generated.h
 lite/model_parser/flatbuffers/param_generated.h
 lite/backends/opencl/utils/cache_generated.h
-build*
+build*/
 third-party/*
 
 # hiai libs
