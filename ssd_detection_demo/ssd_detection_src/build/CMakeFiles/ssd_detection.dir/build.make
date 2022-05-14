@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/bananasuper/work/software/cmake-3.10.3-Linux-x86_64/bin/cmake
+CMAKE_COMMAND = /opt/software/cmake-3.10.3-Linux-x86_64/bin/cmake
 
 # The command to remove a file.
-RM = /home/bananasuper/work/software/cmake-3.10.3-Linux-x86_64/bin/cmake -E remove -f
+RM = /opt/software/cmake-3.10.3-Linux-x86_64/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/bananasuper/work/ssd_detection_demo/ssd_detection_src
+CMAKE_SOURCE_DIR = /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build
+CMAKE_BINARY_DIR = /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ssd_detection.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/ssd_detection.dir/flags.make
 
 CMakeFiles/ssd_detection.dir/ssd_detection.cc.o: CMakeFiles/ssd_detection.dir/flags.make
 CMakeFiles/ssd_detection.dir/ssd_detection.cc.o: ../ssd_detection.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ssd_detection.dir/ssd_detection.cc.o"
-	/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ssd_detection.dir/ssd_detection.cc.o -c /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/ssd_detection.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ssd_detection.dir/ssd_detection.cc.o"
+	/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ssd_detection.dir/ssd_detection.cc.o -c /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/ssd_detection.cc
 
 CMakeFiles/ssd_detection.dir/ssd_detection.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ssd_detection.dir/ssd_detection.cc.i"
-	/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/ssd_detection.cc > CMakeFiles/ssd_detection.dir/ssd_detection.cc.i
+	/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/ssd_detection.cc > CMakeFiles/ssd_detection.dir/ssd_detection.cc.i
 
 CMakeFiles/ssd_detection.dir/ssd_detection.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ssd_detection.dir/ssd_detection.cc.s"
-	/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/ssd_detection.cc -o CMakeFiles/ssd_detection.dir/ssd_detection.cc.s
+	/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/ssd_detection.cc -o CMakeFiles/ssd_detection.dir/ssd_detection.cc.s
 
 CMakeFiles/ssd_detection.dir/ssd_detection.cc.o.requires:
 
@@ -90,25 +90,25 @@ ssd_detection_EXTERNAL_OBJECTS =
 
 ssd_detection: CMakeFiles/ssd_detection.dir/ssd_detection.cc.o
 ssd_detection: CMakeFiles/ssd_detection.dir/build.make
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_dnn.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_highgui.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_ml.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_objdetect.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_shape.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_stitching.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_superres.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_videostab.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_calib3d.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_features2d.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_flann.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_photo.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_video.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_videoio.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_imgcodecs.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_imgproc.so.3.4.10
-ssd_detection: /home/bananasuper/work/ssd_detection_demo/ocv3.4.10/lib/libopencv_core.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_dnn.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_highgui.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_ml.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_objdetect.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_shape.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_stitching.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_superres.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_videostab.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_calib3d.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_features2d.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_flann.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_photo.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_video.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_videoio.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_imgcodecs.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_imgproc.so.3.4.10
+ssd_detection: /opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/lib/libopencv_core.so.3.4.10
 ssd_detection: CMakeFiles/ssd_detection.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ssd_detection"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ssd_detection"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ssd_detection.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -125,6 +125,6 @@ CMakeFiles/ssd_detection.dir/clean:
 .PHONY : CMakeFiles/ssd_detection.dir/clean
 
 CMakeFiles/ssd_detection.dir/depend:
-	cd /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/bananasuper/work/ssd_detection_demo/ssd_detection_src /home/bananasuper/work/ssd_detection_demo/ssd_detection_src /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build /home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build/CMakeFiles/ssd_detection.dir/DependInfo.cmake --color=$(COLOR)
+	cd /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build /opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build/CMakeFiles/ssd_detection.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ssd_detection.dir/depend
 

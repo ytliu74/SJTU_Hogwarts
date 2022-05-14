@@ -1,8 +1,8 @@
-cmd_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o := ~/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc -Wp,-MD,/home/bananasuper/work/nnadrv/build/.nnadrv.mod.o.d  -nostdinc -isystem /home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/../lib/gcc/arm-linux-gnueabihf/5.4.1/include -I./arch/arm/include -I./arch/arm/include/generated/uapi -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -O3 -I/home/bananasuper/work/nnadrv/build/../inc  -DKBUILD_BASENAME='"nnadrv.mod"'  -DKBUILD_MODNAME='"nnadrv"' -DMODULE  -c -o /home/bananasuper/work/nnadrv/build/nnadrv.mod.o /home/bananasuper/work/nnadrv/build/nnadrv.mod.c
+cmd_/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o := /opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc -Wp,-MD,/opt/SJTU_Hogwarts/nnadrv/build/.nnadrv.mod.o.d  -nostdinc -isystem /opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/../lib/gcc/arm-linux-gnueabihf/5.4.1/include -I./arch/arm/include -I./arch/arm/include/generated/uapi -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -O3 -I/opt/SJTU_Hogwarts/nnadrv/build/../inc  -DKBUILD_BASENAME='"nnadrv.mod"'  -DKBUILD_MODNAME='"nnadrv"' -DMODULE  -c -o /opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o /opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.c
 
-source_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o := /home/bananasuper/work/nnadrv/build/nnadrv.mod.c
+source_/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o := /opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.c
 
-deps_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o := \
+deps_/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o := \
     $(wildcard include/config/module/unload.h) \
   include/linux/module.h \
     $(wildcard include/config/modules.h) \
@@ -64,7 +64,7 @@ deps_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o := \
     $(wildcard include/config/mmu.h) \
     $(wildcard include/config/prove/locking.h) \
     $(wildcard include/config/panic/timeout.h) \
-  /home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/5.4.1/include/stdarg.h \
+  /opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/5.4.1/include/stdarg.h \
   include/linux/linkage.h \
   include/linux/stringify.h \
   include/linux/export.h \
@@ -447,6 +447,6 @@ deps_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o := \
   include/linux/vermagic.h \
   include/generated/utsrelease.h \
 
-/home/bananasuper/work/nnadrv/build/nnadrv.mod.o: $(deps_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o)
+/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o: $(deps_/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o)
 
-$(deps_/home/bananasuper/work/nnadrv/build/nnadrv.mod.o):
+$(deps_/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.mod.o):

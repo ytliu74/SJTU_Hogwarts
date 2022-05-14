@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++")
+set(CMAKE_CXX_COMPILER "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-g++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "5.4.1")
@@ -17,11 +17,11 @@ set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 
-set(CMAKE_AR "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ar")
-set(CMAKE_CXX_COMPILER_AR "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc-ar")
-set(CMAKE_RANLIB "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ranlib")
-set(CMAKE_CXX_COMPILER_RANLIB "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc-ranlib")
-set(CMAKE_LINKER "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld")
+set(CMAKE_AR "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ar")
+set(CMAKE_CXX_COMPILER_AR "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc-ar")
+set(CMAKE_RANLIB "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ranlib")
+set(CMAKE_CXX_COMPILER_RANLIB "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-gcc-ranlib")
+set(CMAKE_LINKER "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-ld")
 set(CMAKE_COMPILER_IS_GNUCXX 1)
 set(CMAKE_CXX_COMPILER_LOADED 1)
 set(CMAKE_CXX_COMPILER_WORKS TRUE)
@@ -71,5 +71,5 @@ endif()
 
 
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/5.4.1;/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf;/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc;/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/lib;/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/lib;/home/bananasuper/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf/5.4.1;/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc/arm-linux-gnueabihf;/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/lib/gcc;/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/lib;/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/lib;/opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/arm-linux-gnueabihf/libc/usr/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

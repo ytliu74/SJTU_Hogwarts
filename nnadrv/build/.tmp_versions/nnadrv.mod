@@ -1,3 +1,3 @@
-/home/bananasuper/work/nnadrv/build/nnadrv.ko
-/home/bananasuper/work/nnadrv/build/../src/nnadrv.o
+/opt/SJTU_Hogwarts/nnadrv/build/nnadrv.ko
+/opt/SJTU_Hogwarts/nnadrv/build/../src/nnadrv.o
 

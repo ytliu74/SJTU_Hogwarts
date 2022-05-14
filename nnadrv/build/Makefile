@@ -1,11 +1,11 @@
 # Kernel Module Make File
 
 # Kernel source tree
-KSRC_DIR := ~/work/software/linux-4.9.78
+KSRC_DIR := /opt/software/linux-4.9.78
 
 # Architecture and cross compile
 ARCH := arm
-CROSS_COMPILE := ~/work/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
+CROSS_COMPILE := /opt/software/gcc-linaro-5.4.1-2017.05-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf-
 
 ifneq ($(KERNELRELEASE),)
 # call from kernel build system

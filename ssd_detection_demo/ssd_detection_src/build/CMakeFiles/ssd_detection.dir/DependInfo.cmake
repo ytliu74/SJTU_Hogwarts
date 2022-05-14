@@ -4,15 +4,15 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/bananasuper/work/ssd_detection_demo/ssd_detection_src/ssd_detection.cc" "/home/bananasuper/work/ssd_detection_demo/ssd_detection_src/build/CMakeFiles/ssd_detection.dir/ssd_detection.cc.o"
+  "/opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/ssd_detection.cc" "/opt/SJTU_Hogwarts/ssd_detection_demo/ssd_detection_src/build/CMakeFiles/ssd_detection.dir/ssd_detection.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../../Paddlelite/include"
-  "/home/bananasuper/work/ssd_detection_demo/ocv3.4.10/include"
-  "/home/bananasuper/work/ssd_detection_demo/ocv3.4.10/include/opencv"
+  "/opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/include"
+  "/opt/SJTU_Hogwarts/ssd_detection_demo/ocv3.4.10/include/opencv"
   )
 
 # Targets to which this target links.
