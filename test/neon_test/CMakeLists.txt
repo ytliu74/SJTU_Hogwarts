@@ -28,4 +28,5 @@ elseif(TARGET_ARCH_ABI STREQUAL "armhf")
 endif()
 
 # add_library(ifcnna SHARED intelfpga.cc utils.cc)
-add_executable(arm_test arm_test.c)
+aux_source_directory(. DIR_SRCS)
+add_executable(arm_test ${DIR_SRCS})
