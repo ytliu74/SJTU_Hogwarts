@@ -63,7 +63,7 @@ int main()
 
     clock_gettime(CLOCK_REALTIME, &time3);
     for (int n = 0; n < 1000; n ++)
-        NeonInputRearrange_1(din, dout_2, c, h, w, pad);
+        InputRearrange_1(din, dout_2, c, h, w, pad);
     clock_gettime(CLOCK_REALTIME, &time4);
 
     float time_elapsed_2 = (time4.tv_sec - time3.tv_sec)*1000 + (time4.tv_nsec - time3.tv_nsec)/1000000;
