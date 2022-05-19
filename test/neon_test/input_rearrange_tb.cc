@@ -49,21 +49,21 @@ int main()
     int8_t dout_1[data_length];
     int8_t dout_2[data_length];
 
-    int c = 16;
-    int h = 16;
+    int c = 64;
+    int h = 4;
     int w = 32;
     int pad = 0;
 
     clock_gettime(CLOCK_REALTIME, &time1);
-    for (int n = 0; n < 1000; n ++)
+    for (int n = 0; n < 10000; n ++)
         InputRearrange(din, dout_1, c, h, w, pad);
     clock_gettime(CLOCK_REALTIME, &time2);
 
     float time_elapsed_1 = (time2.tv_sec - time1.tv_sec)*1000 + (time2.tv_nsec - time1.tv_nsec)/1000000;
 
     clock_gettime(CLOCK_REALTIME, &time3);
-    for (int n = 0; n < 1000; n ++)
-        InputRearrange_1(din, dout_2, c, h, w, pad);
+    for (int n = 0; n < 10000; n ++)
+        NeonInputRearrange_3(din, dout_2, c, h, w, pad);
     clock_gettime(CLOCK_REALTIME, &time4);
 
     float time_elapsed_2 = (time4.tv_sec - time3.tv_sec)*1000 + (time4.tv_nsec - time3.tv_nsec)/1000000;
