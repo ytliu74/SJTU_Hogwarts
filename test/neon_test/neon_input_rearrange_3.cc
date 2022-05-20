@@ -12,10 +12,10 @@ void NeonInputRearrange_3(int8_t* din, int8_t* dout, const int c, const int h, c
 
         int num_batch = (h + 2 * pad) * (w + 2 * pad) / 8;
         for (int batch_i = 0; batch_i < num_batch; batch_i++) {
-            rearrange_8_layers(dout_array[0], dout_array[1], dout_array[2], dout_array[3],
+            asm_rearrange_8_layers(dout_array[0], dout_array[1], dout_array[2], dout_array[3],
                 dout_array[4], dout_array[5], dout_array[6], dout_array[7], batch_i, (int64_t*)dout, dout_offset, 0);
 
-            rearrange_8_layers(dout_array[8], dout_array[9], dout_array[10], dout_array[11],
+            asm_rearrange_8_layers(dout_array[8], dout_array[9], dout_array[10], dout_array[11],
                 dout_array[12], dout_array[13], dout_array[14], dout_array[15], batch_i, (int64_t*)dout, dout_offset, 1);
 
             dout_offset += 16;
