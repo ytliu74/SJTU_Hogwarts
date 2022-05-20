@@ -1,18 +1,16 @@
 #include "neon_rearrange.h"
 
 void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
-    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int batch_i, int64_t* out, int offset, int pos) {
+    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int64_t* out, int pos) {
 
-    int array_offset = 8 * batch_i;
-
-    int8x8_t d_array_0 = vld1_s8(l_0 + array_offset);
-    int8x8_t d_array_1 = vld1_s8(l_1 + array_offset);
-    int8x8_t d_array_2 = vld1_s8(l_2 + array_offset);
-    int8x8_t d_array_3 = vld1_s8(l_3 + array_offset);
-    int8x8_t d_array_4 = vld1_s8(l_4 + array_offset);
-    int8x8_t d_array_5 = vld1_s8(l_5 + array_offset);
-    int8x8_t d_array_6 = vld1_s8(l_6 + array_offset);
-    int8x8_t d_array_7 = vld1_s8(l_7 + array_offset);
+    int8x8_t d_array_0 = vld1_s8(l_0);
+    int8x8_t d_array_1 = vld1_s8(l_1);
+    int8x8_t d_array_2 = vld1_s8(l_2);
+    int8x8_t d_array_3 = vld1_s8(l_3);
+    int8x8_t d_array_4 = vld1_s8(l_4);
+    int8x8_t d_array_5 = vld1_s8(l_5);
+    int8x8_t d_array_6 = vld1_s8(l_6);
+    int8x8_t d_array_7 = vld1_s8(l_7);
 
     int8x8x2_t zip_01 = vzip_s8(d_array_0, d_array_1);
     int8x8x2_t zip_23 = vzip_s8(d_array_2, d_array_3);
@@ -58,14 +56,13 @@ void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
     int64x1_t zip_6 = (int64x1_t)zip_01_23_45_67_3.val[0];    // a7b7c7d7e7f7g7h7
     int64x1_t zip_7 = (int64x1_t)zip_01_23_45_67_3.val[1];    // a8b8c8d8e8f8g8h8
 
-    int out_offset = offset + pos;
 
-    vst1_s64(out + out_offset + 0, zip_0);
-    vst1_s64(out + out_offset + 2, zip_1);
-    vst1_s64(out + out_offset + 4, zip_2);
-    vst1_s64(out + out_offset + 6, zip_3);
-    vst1_s64(out + out_offset + 8, zip_4);
-    vst1_s64(out + out_offset + 10, zip_5);
-    vst1_s64(out + out_offset + 12, zip_6);
-    vst1_s64(out + out_offset + 14, zip_7);
+    vst1_s64(out + pos + 0, zip_0);
+    vst1_s64(out + pos + 2, zip_1);
+    vst1_s64(out + pos + 4, zip_2);
+    vst1_s64(out + pos + 6, zip_3);
+    vst1_s64(out + pos + 8, zip_4);
+    vst1_s64(out + pos + 10, zip_5);
+    vst1_s64(out + pos + 12, zip_6);
+    vst1_s64(out + pos + 14, zip_7);
 }
