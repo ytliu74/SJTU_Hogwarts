@@ -43,6 +43,9 @@ void intelfpga_int8_to_fp32(const int8_t* in,
 
 int8_t Quantize(float x);
 
+void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
+    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int64_t* out, int pos);
+
 void PrintTensor(std::string, void*, int);
 
 void conv_chw_pad(int8_t* din, int8_t* dout, int ch, int h, int w, int pad);

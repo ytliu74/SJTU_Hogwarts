@@ -579,8 +579,73 @@ void PrintTensor(std::string filename, void* din, int size) {
     outfile << ss.str();
     outfile.close();
 } // End
+void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
+    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int64_t* out, int pos) {
 
-void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
+    int8x8_t d_array_0 = vld1_s8(l_0);
+    int8x8_t d_array_1 = vld1_s8(l_1);
+    int8x8_t d_array_2 = vld1_s8(l_2);
+    int8x8_t d_array_3 = vld1_s8(l_3);
+    int8x8_t d_array_4 = vld1_s8(l_4);
+    int8x8_t d_array_5 = vld1_s8(l_5);
+    int8x8_t d_array_6 = vld1_s8(l_6);
+    int8x8_t d_array_7 = vld1_s8(l_7);
+
+    int8x8x2_t zip_01 = vzip_s8(d_array_0, d_array_1);
+    int8x8x2_t zip_23 = vzip_s8(d_array_2, d_array_3);
+    int8x8x2_t zip_45 = vzip_s8(d_array_4, d_array_5);
+    int8x8x2_t zip_67 = vzip_s8(d_array_6, d_array_7);
+
+    int16x4_t zip_01_0 = (int16x4_t)zip_01.val[0]; // a1b1 a2b2 a3b3 a4b4
+    int16x4_t zip_01_1 = (int16x4_t)zip_01.val[1]; // a5b5 a6b6 a7b7 a8b8
+    int16x4_t zip_23_0 = (int16x4_t)zip_23.val[0]; // c1d1 c2d2 c3d3 c4d4
+    int16x4_t zip_23_1 = (int16x4_t)zip_23.val[1]; // c5d5 c6d6 c7d7 c8d8
+    int16x4_t zip_45_0 = (int16x4_t)zip_45.val[0];
+    int16x4_t zip_45_1 = (int16x4_t)zip_45.val[1];
+    int16x4_t zip_67_0 = (int16x4_t)zip_67.val[0];
+    int16x4_t zip_67_1 = (int16x4_t)zip_67.val[1];
+
+    int16x4x2_t zip_01_23_0 = vzip_s16(zip_01_0, zip_23_0);
+    int16x4x2_t zip_01_23_1 = vzip_s16(zip_01_1, zip_23_1);
+
+    int16x4x2_t zip_45_67_0 = vzip_s16(zip_45_0, zip_67_0);
+    int16x4x2_t zip_45_67_1 = vzip_s16(zip_45_1, zip_67_1);
+
+    int32x2_t zip_01_23_0_0 = (int32x2_t)zip_01_23_0.val[0]; // a1b1c1d1 a2b2c2d2
+    int32x2_t zip_01_23_0_1 = (int32x2_t)zip_01_23_0.val[1]; // a3b3c3d3 a4b4c4d4
+    int32x2_t zip_01_23_1_0 = (int32x2_t)zip_01_23_1.val[0]; // a5b5c5d5 a6b6c6d6
+    int32x2_t zip_01_23_1_1 = (int32x2_t)zip_01_23_1.val[1]; // a7b7c7d7 a8b8c8d8
+
+    int32x2_t zip_45_67_0_0 = (int32x2_t)zip_45_67_0.val[0]; // e1f1g1h1 e2f2g2h2
+    int32x2_t zip_45_67_0_1 = (int32x2_t)zip_45_67_0.val[1]; // e3f3g3h3 e4f4g4h4
+    int32x2_t zip_45_67_1_0 = (int32x2_t)zip_45_67_1.val[0]; // e5f5g5h5 e6f6g6h6
+    int32x2_t zip_45_67_1_1 = (int32x2_t)zip_45_67_1.val[1]; // e7f7g7h7 e8f8g8h8
+
+    int32x2x2_t zip_01_23_45_67_0 = vzip_s32(zip_01_23_0_0, zip_45_67_0_0);
+    int32x2x2_t zip_01_23_45_67_1 = vzip_s32(zip_01_23_0_1, zip_45_67_0_1);
+    int32x2x2_t zip_01_23_45_67_2 = vzip_s32(zip_01_23_1_0, zip_45_67_1_0);
+    int32x2x2_t zip_01_23_45_67_3 = vzip_s32(zip_01_23_1_1, zip_45_67_1_1);
+
+    int64x1_t zip_0 = (int64x1_t)zip_01_23_45_67_0.val[0];    // a1b1c1d1e1f1g1h1
+    int64x1_t zip_1 = (int64x1_t)zip_01_23_45_67_0.val[1];    // a2b2c2d2e2f2g2h2
+    int64x1_t zip_2 = (int64x1_t)zip_01_23_45_67_1.val[0];    // a3b3c3d3e3f3g3h3
+    int64x1_t zip_3 = (int64x1_t)zip_01_23_45_67_1.val[1];    // a4b4c4d4e4f4g4h4
+    int64x1_t zip_4 = (int64x1_t)zip_01_23_45_67_2.val[0];    // a5b5c5d5e5f5g5h5
+    int64x1_t zip_5 = (int64x1_t)zip_01_23_45_67_2.val[1];    // a6b6c6d6e6f6g6h6
+    int64x1_t zip_6 = (int64x1_t)zip_01_23_45_67_3.val[0];    // a7b7c7d7e7f7g7h7
+    int64x1_t zip_7 = (int64x1_t)zip_01_23_45_67_3.val[1];    // a8b8c8d8e8f8g8h8
+
+
+    vst1_s64(out + pos + 0, zip_0);
+    vst1_s64(out + pos + 2, zip_1);
+    vst1_s64(out + pos + 4, zip_2);
+    vst1_s64(out + pos + 6, zip_3);
+    vst1_s64(out + pos + 8, zip_4);
+    vst1_s64(out + pos + 10, zip_5);
+    vst1_s64(out + pos + 12, zip_6);
+    vst1_s64(out + pos + 14, zip_7);
+}
+/*void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
         const int w, const int pad){
     int8_t* dout_array[INPUT_EXTEND_SCALE];
     int idx_fpga_idata = 0;
@@ -598,8 +663,42 @@ void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
         }
     }
 
-}
+}*/
+void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h, const int w, const int pad) {
+    int8_t* dout_array[INPUT_EXTEND_SCALE];
+    int dout_offset = 0;
+    int dout_array_length = (h + 2 * pad) * (w + 2 * pad);
+    for (int i = 0; i < UpRound(c, INPUT_EXTEND_SCALE); i++) {
+        // dout_array: (1, h_pad_ w_pad)
+        dout_array[0] = din + i * (dout_array_length * INPUT_EXTEND_SCALE);
+        for (int n = 1; n < INPUT_EXTEND_SCALE; n++) {
+            dout_array[n] = dout_array[n - 1] + dout_array_length;
+        }
 
+        int num_batch = dout_array_length / 8;
+        int leftover = dout_array_length % 8;
+        for (int batch_i = 0; batch_i < num_batch; batch_i++) {
+            rearrange_8_layers(dout_array[0], dout_array[1], dout_array[2], dout_array[3],
+                dout_array[4], dout_array[5], dout_array[6], dout_array[7], (int64_t*)dout, 0);
+
+            rearrange_8_layers(dout_array[8], dout_array[9], dout_array[10], dout_array[11],
+                dout_array[12], dout_array[13], dout_array[14], dout_array[15], (int64_t*)dout, 1);
+
+            for (int k = 0; k < INPUT_EXTEND_SCALE; k++)
+                dout_array[k] += 8;
+
+            dout += 128;
+        }
+
+        if (leftover > 0) {
+            for (int i = 0; i < leftover; i++) {
+                for (int j = 0; j < INPUT_EXTEND_SCALE; j++) {
+                    *(dout++) = *(dout_array[j]++);
+                }
+            }
+        }
+    }
+}
 void OutputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
         const int w){
     int8_t* dout_array[INPUT_EXTEND_SCALE];
