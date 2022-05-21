@@ -19,7 +19,7 @@ limitations under the License. */
 #include <sstream>
 //---------------------------------------------------------------------------
 
-int64_t intelfpga_gettime( void ) 
+int64_t intelfpga_gettime( void )
 {
     struct timeval time;
 
@@ -28,7 +28,7 @@ int64_t intelfpga_gettime( void )
     return 1000000LL * (int64_t)time.tv_sec + (int64_t)time.tv_usec;
 }
 
-float intelfpga_absmax(const float* din, int size) 
+float intelfpga_absmax(const float* din, int size)
 {
     float max_value = 0.f;
     int cnt = size / 16;
@@ -71,7 +71,7 @@ float intelfpga_absmax(const float* din, int size)
     return max_value;
 }
 
-void intelfpga_fp32_to_int8(const float* din, int8_t* dout, const float scale, int size) 
+void intelfpga_fp32_to_int8(const float* din, int8_t* dout, const float scale, int size)
 {
     int cnt = size / 16;
     int remain = size & 15;
@@ -171,16 +171,16 @@ void intelfpga_fp32_to_int32(const float* din, int32_t* dout, const float scale,
 
     for (i=0; i<size; i++) {
         val = din[i] * inv_scale;
-        if (val<0.0) 
+        if (val<0.0)
             val -= 0.5;
-        else 
+        else
             val += 0.5;
 
         dout[i] = (int32_t)val;
     }
 }
 
-void intelfpga_int32_to_fp32(const int* din, float* dout, float scale, int size) 
+void intelfpga_int32_to_fp32(const int* din, float* dout, float scale, int size)
 {
     int cnt = size / 16;
     int remain = size & 15;
@@ -275,7 +275,7 @@ void intelfpga_int32_to_fp32(const int* din, float* dout, float scale, int size)
     "vst1.32 {d12-d13}, [%[dout_ptr]]!     @ vst1q_f32()  \n" \
     "bne  1b                                    \n"
 
-void intelfpga_fill_bdouts_act(float* tensor, const float* bdouts, int channel, int channel_size, int relu, float alpha) 
+void intelfpga_fill_bdouts_act(float* tensor, const float* bdouts, int channel, int channel_size, int relu, float alpha)
 {
     float* data = tensor;
     int cnt_num = channel_size >> 4;
@@ -453,7 +453,7 @@ int8_t Quantize(float x) {
     int y = 0;
     unsigned int x_int_expr =*(int*)&x;
     sign = x_int_expr >> 31;
-    exp = ((x_int_expr & 0x7f800000) >> 23); 
+    exp = ((x_int_expr & 0x7f800000) >> 23);
     mag = (x_int_expr & 0x7fffff);
     // NON number.
     if(exp == 126) {
@@ -481,17 +481,17 @@ int8_t Quantize(float x) {
     if(y < Q_MIN) {
         return Q_MIN;
     }
-    return y; 
+    return y;
 }
 
-// Input: 
+// Input:
 void conv_chw_pad(int8_t* din, int8_t* dout, int ch, int h,int w, int pad) {
     int w_2pad = w + 2 * pad;
     int w_stride = w_2pad * (h + 2 * pad);
     int8_t* din_int8 = (int8_t*)din;
-    int8_t* dout_int8; 
+    int8_t* dout_int8;
     for(int c = 0; c < ch; c++) {
-        dout_int8 = dout + w_2pad + c * w_stride; 
+        dout_int8 = dout + w_2pad + c * w_stride;
         for(int r = 0; r < h; r++) {
             for(int k = 0; k < w; k++) {
                 *(dout_int8 + pad) = *(din_int8);
@@ -579,80 +579,15 @@ void PrintTensor(std::string filename, void* din, int size) {
     outfile << ss.str();
     outfile.close();
 } // End
-void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
-    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int64_t* out, int pos) {
 
-    int8x8_t d_array_0 = vld1_s8(l_0);
-    int8x8_t d_array_1 = vld1_s8(l_1);
-    int8x8_t d_array_2 = vld1_s8(l_2);
-    int8x8_t d_array_3 = vld1_s8(l_3);
-    int8x8_t d_array_4 = vld1_s8(l_4);
-    int8x8_t d_array_5 = vld1_s8(l_5);
-    int8x8_t d_array_6 = vld1_s8(l_6);
-    int8x8_t d_array_7 = vld1_s8(l_7);
-
-    int8x8x2_t zip_01 = vzip_s8(d_array_0, d_array_1);
-    int8x8x2_t zip_23 = vzip_s8(d_array_2, d_array_3);
-    int8x8x2_t zip_45 = vzip_s8(d_array_4, d_array_5);
-    int8x8x2_t zip_67 = vzip_s8(d_array_6, d_array_7);
-
-    int16x4_t zip_01_0 = (int16x4_t)zip_01.val[0]; // a1b1 a2b2 a3b3 a4b4
-    int16x4_t zip_01_1 = (int16x4_t)zip_01.val[1]; // a5b5 a6b6 a7b7 a8b8
-    int16x4_t zip_23_0 = (int16x4_t)zip_23.val[0]; // c1d1 c2d2 c3d3 c4d4
-    int16x4_t zip_23_1 = (int16x4_t)zip_23.val[1]; // c5d5 c6d6 c7d7 c8d8
-    int16x4_t zip_45_0 = (int16x4_t)zip_45.val[0];
-    int16x4_t zip_45_1 = (int16x4_t)zip_45.val[1];
-    int16x4_t zip_67_0 = (int16x4_t)zip_67.val[0];
-    int16x4_t zip_67_1 = (int16x4_t)zip_67.val[1];
-
-    int16x4x2_t zip_01_23_0 = vzip_s16(zip_01_0, zip_23_0);
-    int16x4x2_t zip_01_23_1 = vzip_s16(zip_01_1, zip_23_1);
-
-    int16x4x2_t zip_45_67_0 = vzip_s16(zip_45_0, zip_67_0);
-    int16x4x2_t zip_45_67_1 = vzip_s16(zip_45_1, zip_67_1);
-
-    int32x2_t zip_01_23_0_0 = (int32x2_t)zip_01_23_0.val[0]; // a1b1c1d1 a2b2c2d2
-    int32x2_t zip_01_23_0_1 = (int32x2_t)zip_01_23_0.val[1]; // a3b3c3d3 a4b4c4d4
-    int32x2_t zip_01_23_1_0 = (int32x2_t)zip_01_23_1.val[0]; // a5b5c5d5 a6b6c6d6
-    int32x2_t zip_01_23_1_1 = (int32x2_t)zip_01_23_1.val[1]; // a7b7c7d7 a8b8c8d8
-
-    int32x2_t zip_45_67_0_0 = (int32x2_t)zip_45_67_0.val[0]; // e1f1g1h1 e2f2g2h2
-    int32x2_t zip_45_67_0_1 = (int32x2_t)zip_45_67_0.val[1]; // e3f3g3h3 e4f4g4h4
-    int32x2_t zip_45_67_1_0 = (int32x2_t)zip_45_67_1.val[0]; // e5f5g5h5 e6f6g6h6
-    int32x2_t zip_45_67_1_1 = (int32x2_t)zip_45_67_1.val[1]; // e7f7g7h7 e8f8g8h8
-
-    int32x2x2_t zip_01_23_45_67_0 = vzip_s32(zip_01_23_0_0, zip_45_67_0_0);
-    int32x2x2_t zip_01_23_45_67_1 = vzip_s32(zip_01_23_0_1, zip_45_67_0_1);
-    int32x2x2_t zip_01_23_45_67_2 = vzip_s32(zip_01_23_1_0, zip_45_67_1_0);
-    int32x2x2_t zip_01_23_45_67_3 = vzip_s32(zip_01_23_1_1, zip_45_67_1_1);
-
-    int64x1_t zip_0 = (int64x1_t)zip_01_23_45_67_0.val[0];    // a1b1c1d1e1f1g1h1
-    int64x1_t zip_1 = (int64x1_t)zip_01_23_45_67_0.val[1];    // a2b2c2d2e2f2g2h2
-    int64x1_t zip_2 = (int64x1_t)zip_01_23_45_67_1.val[0];    // a3b3c3d3e3f3g3h3
-    int64x1_t zip_3 = (int64x1_t)zip_01_23_45_67_1.val[1];    // a4b4c4d4e4f4g4h4
-    int64x1_t zip_4 = (int64x1_t)zip_01_23_45_67_2.val[0];    // a5b5c5d5e5f5g5h5
-    int64x1_t zip_5 = (int64x1_t)zip_01_23_45_67_2.val[1];    // a6b6c6d6e6f6g6h6
-    int64x1_t zip_6 = (int64x1_t)zip_01_23_45_67_3.val[0];    // a7b7c7d7e7f7g7h7
-    int64x1_t zip_7 = (int64x1_t)zip_01_23_45_67_3.val[1];    // a8b8c8d8e8f8g8h8
-
-
-    vst1_s64(out + pos + 0, zip_0);
-    vst1_s64(out + pos + 2, zip_1);
-    vst1_s64(out + pos + 4, zip_2);
-    vst1_s64(out + pos + 6, zip_3);
-    vst1_s64(out + pos + 8, zip_4);
-    vst1_s64(out + pos + 10, zip_5);
-    vst1_s64(out + pos + 12, zip_6);
-    vst1_s64(out + pos + 14, zip_7);
-}
 /*void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
         const int w, const int pad){
     int8_t* dout_array[INPUT_EXTEND_SCALE];
     int idx_fpga_idata = 0;
     for(int i = 0; i < UpRound(c, INPUT_EXTEND_SCALE); i++) {
-        dout_array[0] = din + i * ((h + 2 * pad) * (w + 2 * pad) * INPUT_EXTEND_SCALE); 
+        dout_array[0] = din + i * ((h + 2 * pad) * (w + 2 * pad) * INPUT_EXTEND_SCALE);
         for(int n = 1; n < INPUT_EXTEND_SCALE; n++) {
-            dout_array[n] = dout_array[n - 1] + (h + 2 * pad) * (w + 2 * pad); 
+            dout_array[n] = dout_array[n - 1] + (h + 2 * pad) * (w + 2 * pad);
         }
         for(int r = 0; r < (h + 2 * pad); r++) {
             for(int c = 0; c < (w + 2 * pad); c++) {
@@ -664,49 +599,190 @@ void rearrange_8_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
     }
 
 }*/
-void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h, const int w, const int pad) {
+
+void asm_rearrange_16_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
+    int8_t* l_4, int8_t* l_5, int8_t* l_6, int8_t* l_7, int8_t* out, int iter, int l_len) {
+
+    // l_len is the length of the dout_array[]
+    // len means jump 8 dout_array[]
+    int len = l_len * 8;
+
+    asm volatile (
+        // r2 -> jump back length
+        "sub      r2, %[len], #8   \n"
+
+        // main loop
+        "loop:                     \n"
+
+        // load l_0 - l_7
+        "vld1.8   d0, [%[l_0]]     \n"
+        "vld1.8   d1, [%[l_1]]     \n"
+        "vld1.8   d2, [%[l_2]]     \n"
+        "vld1.8   d3, [%[l_3]]     \n"
+        "vld1.8   d4, [%[l_4]]     \n"
+        "vld1.8   d5, [%[l_5]]     \n"
+        "vld1.8   d6, [%[l_6]]     \n"
+        "vld1.8   d7, [%[l_7]]     \n"
+
+        // calculate l_8 - l_15
+        // l_{x} -> l_{x+8}
+        "add   %[l_0], %[l_0], %[len]   \n"
+        "add   %[l_1], %[l_1], %[len]   \n"
+        "add   %[l_2], %[l_2], %[len]   \n"
+        "add   %[l_3], %[l_3], %[len]   \n"
+        "add   %[l_4], %[l_4], %[len]   \n"
+        "add   %[l_5], %[l_5], %[len]   \n"
+        "add   %[l_6], %[l_6], %[len]   \n"
+        "add   %[l_7], %[l_7], %[len]   \n"
+
+        // load l_8 - l_15
+        "vld1.8   d20, [%[l_0]]     \n"
+        "vld1.8   d21, [%[l_1]]     \n"
+        "vld1.8   d22, [%[l_2]]     \n"
+        "vld1.8   d23, [%[l_3]]     \n"
+        "vld1.8   d24, [%[l_4]]     \n"
+        "vld1.8   d25, [%[l_5]]     \n"
+        "vld1.8   d26, [%[l_6]]     \n"
+        "vld1.8   d27, [%[l_7]]     \n"
+
+        // calculate next l_0 - l_7
+        // use r2 to jump back
+        "sub   %[l_0], %[l_0], r2   \n"
+        "sub   %[l_1], %[l_1], r2   \n"
+        "sub   %[l_2], %[l_2], r2   \n"
+        "sub   %[l_3], %[l_3], r2   \n"
+        "sub   %[l_4], %[l_4], r2   \n"
+        "sub   %[l_5], %[l_5], r2   \n"
+        "sub   %[l_6], %[l_6], r2   \n"
+        "sub   %[l_7], %[l_7], r2   \n"
+
+        // calculate store base addr
+        // "add r0, %[out], %[offset] \n"
+
+        // zip single pixel
+        "vzip.8   d0, d1           \n"
+        "vzip.8   d2, d3           \n"
+        "vzip.8   d4, d5           \n"
+        "vzip.8   d6, d7           \n"
+
+        "vzip.8   d20, d21           \n"
+        "vzip.8   d22, d23           \n"
+        "vzip.8   d24, d25           \n"
+        "vzip.8   d26, d27           \n"
+
+        // zip two pixels
+        "vzip.16  d0, d2           \n"
+        "vzip.16  d1, d3           \n"
+        "vzip.16  d4, d6           \n"
+        "vzip.16  d5, d7           \n"
+
+        "vzip.16  d20, d22           \n"
+        "vzip.16  d21, d23           \n"
+        "vzip.16  d24, d26           \n"
+        "vzip.16  d25, d27           \n"
+
+        // zip four pixels
+        "vzip.32  d0, d4           \n"
+        "vzip.32  d2, d6           \n"
+        "vzip.32  d1, d5           \n"
+        "vzip.32  d3, d7           \n"
+
+        "vzip.32  d20, d24           \n"
+        "vzip.32  d22, d26           \n"
+        "vzip.32  d21, d25           \n"
+        "vzip.32  d23, d27           \n"
+
+        // store to memory
+        "vst1.8   d0 , [%[out]]!    \n"
+        "vst1.8   d20, [%[out]]!    \n"
+        "vst1.8   d4 , [%[out]]!    \n"
+        "vst1.8   d24, [%[out]]!    \n"
+        "vst1.8   d2 , [%[out]]!    \n"
+        "vst1.8   d22, [%[out]]!    \n"
+        "vst1.8   d6 , [%[out]]!    \n"
+        "vst1.8   d26, [%[out]]!    \n"
+        "vst1.8   d1 , [%[out]]!    \n"
+        "vst1.8   d21, [%[out]]!    \n"
+        "vst1.8   d5 , [%[out]]!    \n"
+        "vst1.8   d25, [%[out]]!    \n"
+        "vst1.8   d3 , [%[out]]!    \n"
+        "vst1.8   d23, [%[out]]!    \n"
+        "vst1.8   d7 , [%[out]]!    \n"
+        "vst1.8   d27, [%[out]]!    \n"
+
+        "subs     %[iter], %[iter], #1  \n"
+        "bne      loop                  \n"
+
+        //restore l_0 - l_7
+        "sub   %[l_0], %[l_0], #8   \n"
+        "sub   %[l_1], %[l_1], #8   \n"
+        "sub   %[l_2], %[l_2], #8   \n"
+        "sub   %[l_3], %[l_3], #8   \n"
+        "sub   %[l_4], %[l_4], #8   \n"
+        "sub   %[l_5], %[l_5], #8   \n"
+        "sub   %[l_6], %[l_6], #8   \n"
+        "sub   %[l_7], %[l_7], #8   \n"
+
+        // output
+        : [out] "+r"(out),
+        [l_0] "+r"(l_0),
+        [l_1] "+r"(l_1),
+        [l_2] "+r"(l_2),
+        [l_3] "+r"(l_3),
+        [l_4] "+r"(l_4),
+        [l_5] "+r"(l_5),
+        [l_6] "+r"(l_6),
+        [l_7] "+r"(l_7)
+        // input
+        : [len] "r"(len),
+        [iter] "r"(iter)
+
+        : "cc", "memory", "r2",
+        "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7","d20", "d21", "d22", "d23", "d24", "d25", "d26", "d27"
+        );
+}
+
+void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
+                    const int w, const int pad) {
+
     int8_t* dout_array[INPUT_EXTEND_SCALE];
     int dout_offset = 0;
     int dout_array_length = (h + 2 * pad) * (w + 2 * pad);
     for (int i = 0; i < UpRound(c, INPUT_EXTEND_SCALE); i++) {
         // dout_array: (1, h_pad_ w_pad)
         dout_array[0] = din + i * (dout_array_length * INPUT_EXTEND_SCALE);
+
         for (int n = 1; n < INPUT_EXTEND_SCALE; n++) {
             dout_array[n] = dout_array[n - 1] + dout_array_length;
         }
 
-        int num_batch = dout_array_length / 8;
+        int num_iter = dout_array_length / 8;
         int leftover = dout_array_length % 8;
-        for (int batch_i = 0; batch_i < num_batch; batch_i++) {
-            rearrange_8_layers(dout_array[0], dout_array[1], dout_array[2], dout_array[3],
-                dout_array[4], dout_array[5], dout_array[6], dout_array[7], (int64_t*)dout, 0);
 
-            rearrange_8_layers(dout_array[8], dout_array[9], dout_array[10], dout_array[11],
-                dout_array[12], dout_array[13], dout_array[14], dout_array[15], (int64_t*)dout, 1);
+        if (num_iter > 0) {
+            asm_rearrange_16_layers(dout_array[0], dout_array[1], dout_array[2], dout_array[3],
+                dout_array[4], dout_array[5], dout_array[6], dout_array[7],
+                dout, num_iter, dout_array_length);
 
-            for (int k = 0; k < INPUT_EXTEND_SCALE; k++)
-                dout_array[k] += 8;
-
-            dout += 128;
+            dout += num_iter * 8 * 16;
         }
 
-        if (leftover > 0) {
-            for (int i = 0; i < leftover; i++) {
-                for (int j = 0; j < INPUT_EXTEND_SCALE; j++) {
+        if (leftover > 0)
+            for (int i = 0; i < leftover; i++)
+                for (int j = 0; j < INPUT_EXTEND_SCALE; j++)
                     *(dout++) = *(dout_array[j]++);
-                }
-            }
-        }
     }
 }
+
+
 void OutputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
         const int w){
     int8_t* dout_array[INPUT_EXTEND_SCALE];
     int idx_fpga_idata = 0;
     for(int i = 0; i < UpRound(c, INPUT_EXTEND_SCALE); i++) {
-        dout_array[0] = dout + i * h * w * INPUT_EXTEND_SCALE; 
+        dout_array[0] = dout + i * h * w * INPUT_EXTEND_SCALE;
         for(int n = 1; n < INPUT_EXTEND_SCALE; n++) {
-            dout_array[n] = dout_array[n - 1] + h * w; 
+            dout_array[n] = dout_array[n - 1] + h * w;
         }
         for(int r = 0; r < h; r++) {
             for(int c = 0; c < w; c++) {
