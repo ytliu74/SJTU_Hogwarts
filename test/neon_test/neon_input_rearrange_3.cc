@@ -23,6 +23,9 @@ void NeonInputRearrange_3(int8_t* din, int8_t* dout,
                 dout, num_iter, dout_array_length);
 
             dout += num_iter * 8 * 16;
+
+            for (int k = 0; k < INPUT_EXTEND_SCALE; k++)
+                dout_array[k] += 8 * num_iter;
         }
 
         if (leftover > 0)

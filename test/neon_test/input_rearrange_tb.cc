@@ -52,7 +52,7 @@ bool test_functionality(void (*rearrange)(int8_t*, int8_t*, const int, const int
 
         int8_t* din = new int8_t[data_length];
         for (int i = 0; i < data_length; i++)
-            din[i] = i % 16;
+            din[i] = i % 175;
 
         int8_t* dout_0 = new int8_t[data_length];
         int8_t* dout_1 = new int8_t[data_length];

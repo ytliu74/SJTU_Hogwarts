@@ -713,16 +713,6 @@ void asm_rearrange_16_layers(int8_t* l_0, int8_t* l_1, int8_t* l_2, int8_t* l_3,
         "subs     %[iter], %[iter], #1  \n"
         "bne      loop                  \n"
 
-        //restore l_0 - l_7
-        "sub   %[l_0], %[l_0], #8   \n"
-        "sub   %[l_1], %[l_1], #8   \n"
-        "sub   %[l_2], %[l_2], #8   \n"
-        "sub   %[l_3], %[l_3], #8   \n"
-        "sub   %[l_4], %[l_4], #8   \n"
-        "sub   %[l_5], %[l_5], #8   \n"
-        "sub   %[l_6], %[l_6], #8   \n"
-        "sub   %[l_7], %[l_7], #8   \n"
-
         // output
         : [out] "+r"(out),
         [l_0] "+r"(l_0),
@@ -765,6 +755,9 @@ void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
                 dout, num_iter, dout_array_length);
 
             dout += num_iter * 8 * 16;
+
+            for (int k = 0; k < INPUT_EXTEND_SCALE; k++)
+                dout_array[k] += 8 * num_iter;
         }
 
         if (leftover > 0)
