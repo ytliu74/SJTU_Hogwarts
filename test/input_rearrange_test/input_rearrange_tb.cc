@@ -10,10 +10,10 @@
 #include <arm_neon.h>
 #include "neon_rearrange.h"
 
-int ch[11] = { 16,  32,  64, 64, 128, 128, 256, 512, 512, 1024, 1024 };
-int he[11] = { 224, 112, 112, 56,  56,  28,  28,  14,   7,    7,    1 };
-int wi[11] = { 224, 112, 112, 56,  56,  28,  28,  14,   7,    7,    1 };
-int padd[11] = { 0 };
+int ch[5] = {512, 512, 512, 512, 512};
+int he[5] = {19, 10, 5, 3, 2};
+int wi[5] = {19, 10, 5, 3, 2};
+int padd[5] = { 0 };
 
 int UpRound(int a, int b) {
     return (a - 1) / b + 1;
@@ -42,7 +42,7 @@ void InputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
 bool test_functionality(void (*rearrange)(int8_t*, int8_t*, const int, const int, const int, const int)) {
     bool pass = true;
 
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 5; i++) {
         int c = ch[i];
         int h = he[i];
         int w = wi[i];
@@ -82,7 +82,7 @@ bool test_functionality(void (*rearrange)(int8_t*, int8_t*, const int, const int
 
 void test_performance(void (*rearrange)(int8_t*, int8_t*, const int, const int, const int, const int)) {
 
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 5; i++) {
         int c = ch[i];
         int h = he[i];
         int w = wi[i];
@@ -103,14 +103,14 @@ void test_performance(void (*rearrange)(int8_t*, int8_t*, const int, const int, 
         int8_t* dout_1 = new int8_t[data_length];
 
         clock_gettime(CLOCK_REALTIME, &time1);
-        for (int n = 0; n < 500; n++)
+        for (int n = 0; n < 1000; n++)
             InputRearrange(din, dout_1, c, h, w, pad);
         clock_gettime(CLOCK_REALTIME, &time2);
 
         float time_elapsed_1 = (time2.tv_sec - time1.tv_sec) * 1000 + (time2.tv_nsec - time1.tv_nsec) / 1000000;
 
         clock_gettime(CLOCK_REALTIME, &time3);
-        for (int n = 0; n < 500; n++)
+        for (int n = 0; n < 1000; n++)
             (*rearrange)(din, dout_1, c, h, w, pad);
         clock_gettime(CLOCK_REALTIME, &time4);
 

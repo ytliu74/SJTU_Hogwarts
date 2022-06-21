@@ -1,8 +1,8 @@
 #include "output_rearrange.h"
 
-int ch[11] = {  16,  32,  64, 64, 128, 128, 256, 512, 512, 1024, 1024 };
-int he[11] = { 224, 112, 112, 56,  56,  28,  28,  14,   7,    7,    1 };
-int wi[11] = { 224, 112, 112, 56,  56,  28,  28,  14,   7,    7,    1 };
+int ch[5] = {512, 512, 512, 512, 512};
+int he[5] = {19, 10, 5, 3, 2};
+int wi[5] = {19, 10, 5, 3, 2};
 
 int UpRound(int a, int b) {
     return (a - 1) / b + 1;
@@ -30,7 +30,7 @@ void OutputRearrange(int8_t* din, int8_t* dout, const int c, const int h,
 bool test_functionality(void (*rearrange)(int8_t*, int8_t*, const int, const int, const int)) {
     bool pass = true;
 
-    for (int i = 0; i < 11; i ++) {
+    for (int i = 0; i < 5; i ++) {
         int c = ch[i];
         int h = he[i];
         int w = wi[i];
@@ -70,7 +70,7 @@ bool test_functionality(void (*rearrange)(int8_t*, int8_t*, const int, const int
 
 void test_performance(void (*rearrange)(int8_t*, int8_t*, const int, const int, const int)) {
 
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 5; i++) {
         int c = ch[i];
         int h = he[i];
         int w = wi[i];

@@ -513,6 +513,8 @@ bool conv_trans_weights_numc(const int8_t* din,
         int chin,
         int n,
         int kernel_size) {
+    std::cout << "Entering conv_trans_weights_numc" << std::endl;
+
     if (n <= 0) {
         std::cout << "ch_n and hei_n are more than zero";
         return false;

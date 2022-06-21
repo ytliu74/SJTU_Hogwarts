@@ -9,7 +9,7 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
-#include <unistd.h>  
+#include <unistd.h>
 #include <sys/mman.h>
 #include <sys/times.h>
 
@@ -95,7 +95,7 @@ void fpga_copy_f32(float* dst, const float* src, int len) {
 }
 
 
-int intelfpga_open(void) 
+int intelfpga_open(void)
 {
     if (nna_fd<0) {
         nna_fd = open("/dev/nnadrv0", O_RDWR);
@@ -105,9 +105,9 @@ int intelfpga_open(void)
     return 0;
 }
 
-void intelfpga_close(void) 
+void intelfpga_close(void)
 {
-    if (nna_fd<0) 
+    if (nna_fd<0)
         return;
     close(nna_fd);
     nna_fd = -1;
@@ -151,8 +151,10 @@ void PrintConvParam(nna_conv_s* conv_param) {
 
 bool IntelFpgaConvDepthwise(DeviceGraphNode* node, int8_t* din,
         const std::map<DeviceGraphNode*, int8_t*>& output_nodes,
-        int max_output_size, int8_t* buff) { 
+        int max_output_size, int8_t* buff) {
     // 1) Init device and device memory.
+    std::cout << "Entering IntelFpgaConvDepthwise" << std::endl;
+
     if (intelfpga_open()) {
         return false;
     }
@@ -179,7 +181,7 @@ bool IntelFpgaConvDepthwise(DeviceGraphNode* node, int8_t* din,
         for(int c = 0; c < param->in_c; c++) {
             for(int w = 0; w < param->in_w; w++) {
                 for(int h = 0; h < param->in_h; h++) {
-                    *(din_reordered 
+                    *(din_reordered
                             + (c * param->in_w * param->in_h)
                             + (w * param->in_h)
                             + h)
@@ -195,15 +197,15 @@ bool IntelFpgaConvDepthwise(DeviceGraphNode* node, int8_t* din,
     InputRearrange(din_reordered,
             conv->ia,
             param->in_c,
-            param->in_h, 
+            param->in_h,
             param->in_w,
             param->in_pad
             );
 
     // Call IP.
-    //auto cur_node= node; 
+    //auto cur_node= node;
     //while(cur_node) {
-    //  cur_node->device_param_->ip->in_c = UpRound(cur_node->device_param_->ip->in_c, 
+    //  cur_node->device_param_->ip->in_c = UpRound(cur_node->device_param_->ip->in_c,
     //      INPUT_EXTEND_SCALE) * INPUT_EXTEND_SCALE;
     //  cur_node = cur_node->next_;
     //}
@@ -219,8 +221,8 @@ bool IntelFpgaConvDepthwise(DeviceGraphNode* node, int8_t* din,
     // 5) Reordered output nodes and copy output from sdk to software.
     int8_t* dout_reordered = din_reordered;
     //  memset(din_reordered, 0, max_output_size);
-    for(auto node2addr: output_nodes) { 
-        //PrintConvParam(node2addr.first->device_param_);
+    for(auto node2addr: output_nodes) {
+        // PrintConvParam(node2addr.first->device_param_);
         OutputRearrange(node2addr.first->device_param_->oa,
                 dout_reordered,
                 node2addr.first->device_param_->ip->output_c,
@@ -230,7 +232,7 @@ bool IntelFpgaConvDepthwise(DeviceGraphNode* node, int8_t* din,
         for(int c = 0; c < node2addr.first->device_param_->ip->output_c; c++) {
             for(int w = 0; w < node2addr.first->device_param_->ip->output_w; w++) {
                 for(int h = 0; h < node2addr.first->device_param_->ip->output_h; h++) {
-                    *(node2addr.second 
+                    *(node2addr.second
                             + (c * node2addr.first->device_param_->ip->output_w * node2addr.first->device_param_->ip->output_h)
                             + (w * node2addr.first->device_param_->ip->output_h)
                             + h)

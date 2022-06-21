@@ -51,6 +51,7 @@ bool SubgraphEngineBase::Run() {
   if (InputShapeChanged()) {
     BuildDeviceProgram();
   }
+  std::cout << "Entering SubgraphEngineBase" << std::endl;
   return LaunchDeviceProgram();
 }
 

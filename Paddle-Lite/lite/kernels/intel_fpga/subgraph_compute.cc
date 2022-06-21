@@ -76,7 +76,9 @@ bool SubgraphEngine::LaunchDeviceProgram() {
     return LaunchOriginProgram();
   }
 
-//  LOG(INFO) << "Launch intelfpga subgraph pragram.";
+  LOG(INFO) << "Launch intelfpga subgraph pragram.";
+  std::cout << "Entering LaunchDeviceProgram" << std::endl;
+
   return device_programs_[origin_idims_]->ExecuteDeviceGraph();
 }
 

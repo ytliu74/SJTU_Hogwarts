@@ -100,6 +100,7 @@ static bool conv_trans_weights_numc(const Dtype* din,
                                     int chin,
                                     int n,
                                     int kernel_size) {
+  std::cout << "Entering math conv_trans_weights_numc" << std::endl;
   if (n <= 0) {
     LOG(ERROR) << "ch_n and hei_n are more than zero";
     return false;
@@ -3736,7 +3737,7 @@ inline void int32_nchwc8_kernel(float*& dout0,        // NOLINT
                  [scale1] "w"(scale1),
                  [bias0] "w"(bias0),
                  [bias1] "w"(bias1),
-                 [flag_act] "r"(flag_act), 
+                 [flag_act] "r"(flag_act),
                  [alpha] "r"(alpha)
                : "cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6",
                  "v7", "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15",
@@ -3769,7 +3770,7 @@ inline void int32_nchwc8_kernel(float*& dout0,        // NOLINT
                  [scale1] "w"(scale1),
                  [bias0] "w"(bias0),
                  [bias1] "w"(bias1),
-                 [flag_act] "r"(flag_act), 
+                 [flag_act] "r"(flag_act),
                  [alpha] "r"(alpha)
                : "cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6",
                  "q7", "q8", "q9", "q10", "q11"
@@ -3869,7 +3870,7 @@ inline void int32_nchwc8_kernel(int8_t*& dout0,       // NOLINT
                  [bias0] "w"(bias0),
                  [bias1] "w"(bias1),
                  [vmax] "w"(vmax),
-                 [flag_act] "r"(flag_act), 
+                 [flag_act] "r"(flag_act),
                  [alpha] "r"(alpha)
                : "cc", "memory", "v0", "v1", "v2", "v3", "v4", "v5", "v6",
                  "v7", "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15",
@@ -3988,7 +3989,7 @@ inline void int32_nchwc8_kernel(int8_t*& dout0,       // NOLINT
                  [bias0] "w"(bias0),
                  [bias1] "w"(bias1),
                  [vmax] "r"(vmax),
-                 [flag_act] "r"(flag_act), 
+                 [flag_act] "r"(flag_act),
                  [alpha] "r"(alpha)
                : "cc", "memory", "q0", "q1", "q2", "q3", "q4", "q5", "q6",
                  "q7", "q8", "q9", "q10", "q11"

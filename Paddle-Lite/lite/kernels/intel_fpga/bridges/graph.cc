@@ -23,6 +23,7 @@ namespace subgraph {
 namespace intel_fpga {
 
 bool Graph::ExecuteDeviceGraph() {
+  std::cout << "Entering ExecuteDeviceGraph" << std::endl;
   return IntelFpgaConvDepthwise(root_, din_, output_nodes_, max_device_output_size_, data_buff_);
   // return fpga_exec_engine_->FpgaExecute();
 }
@@ -36,7 +37,7 @@ bool Graph::BuildDeviceModel() {
     if(cur_node->output_ref_count_ == 1 && cur_node->next_ && cur_node->is_output == false) {
       cur_node->device_param_->ip->out_pad = cur_node->next_->device_param_->ip->in_pad;
     }
-     
+
     // Special nodes use individual ddr block instead of double buffer.
     // Such nodes are SIME nodes.
     if((cur_node->is_output && cur_node->output_ref_count_ == 1) || (cur_node->output_ref_count_ > 1)) {
@@ -44,7 +45,7 @@ bool Graph::BuildDeviceModel() {
     }
 
     auto fpga_param = cur_node->device_param_;
-    int extent_input_size = ((fpga_param->ip->in_c - 1) / INPUT_EXTEND_SCALE + 1) * 
+    int extent_input_size = ((fpga_param->ip->in_c - 1) / INPUT_EXTEND_SCALE + 1) *
       INPUT_EXTEND_SCALE *
       (fpga_param->ip->in_h + 2 * fpga_param->ip->in_pad) *
       (fpga_param->ip->in_w + 2 * fpga_param->ip->in_pad);
@@ -62,7 +63,7 @@ bool Graph::BuildDeviceModel() {
     // For output node, set extent_out_size in device param.
     if(cur_node->is_output) {
       // Store origin outptut address in graph's output_nodes.
-      output_nodes_[cur_node] = fpga_param->oa; 
+      output_nodes_[cur_node] = fpga_param->oa;
       max_device_output_size_ = std::max(max_device_output_size_, fpga_param->extent_out_size);
       // Allocate space for extent-output.
       fpga_param->oa = new int8_t[fpga_param->extent_out_size];
